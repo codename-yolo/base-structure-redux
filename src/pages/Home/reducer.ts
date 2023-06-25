@@ -1,3 +1,4 @@
+import reducerRegistry from '../../redux/registerReducer';
 import actionTypes from './constants';
 import { HomeState, HomeActions } from './types';
 
@@ -38,4 +39,6 @@ const homeReducer = (
     }
 };
 
-export default homeReducer;
+reducerRegistry.register('home', homeReducer)
+
+// export default homeReducer;

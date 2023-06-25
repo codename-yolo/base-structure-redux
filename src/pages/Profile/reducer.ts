@@ -1,3 +1,4 @@
+import reducerRegistry from '../../redux/registerReducer';
 import actionTypes from './constants';
 import { ProfileState, ProfileActions } from './types';
 
@@ -37,5 +38,7 @@ const profileReducer = (
             return state;
     }
 };
+
+reducerRegistry.register('profile', profileReducer)
 
 export default profileReducer;

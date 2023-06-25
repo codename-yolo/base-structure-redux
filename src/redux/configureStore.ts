@@ -1,14 +1,20 @@
-import { Store, createStore, compose } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
 import createReducer from './reducers';
-import { ApplicationRootState } from './types';
+import reducerRegistry from './registerReducer';
 
 declare const window: any;
 
-const configureStore: (initialState?: ApplicationRootState | Record<string, never>) => Store = (
-    initialState: ApplicationRootState | Record<string, never> = {},
-) => {
-    const store = createStore(createReducer(), initialState, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__());
+const configureStore = () => {
+    reducerRegistry.setChangeListener((reducers) => {
+        store.replaceReducer(
+            combineReducers({
+                ...reducers,
+            }) as any
+        )
+    })
+
+    const store = createStore(createReducer(), undefined, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__());
 
     return store;
 };

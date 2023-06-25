@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 
 import globalReducer from './global/reducer';
-import homeReducer from '../pages/Home/reducer';
-import profileReducer from '../pages/Profile/reducer';
+import reducerRegistry from './registerReducer';
 
 /**
  * Merges all reducer
@@ -10,8 +9,7 @@ import profileReducer from '../pages/Profile/reducer';
 const createReducer = () => {
     return combineReducers({
         global: globalReducer,
-        home: homeReducer,
-        profile: profileReducer
+        ...reducerRegistry.reducers
     });
 };
 
