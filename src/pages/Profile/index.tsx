@@ -1,10 +1,14 @@
 import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useNavigate } from 'react-router-dom';
+
+import reducer from './reducer';
+import { useInjectReducer } from '../../redux/reduxInjectors';
 
 import { makeSelectIsLoading, makeSelectCompleted, makeSelectData } from './selectors';
-import { initPage, requestGetProfileStart } from './actions';
-import { useNavigate } from 'react-router-dom';
+import { initPage } from './actions';
+import { getProfileData } from './thunk';
 
 const stateSelector = createStructuredSelector({
     isLoading: makeSelectIsLoading(),
@@ -12,7 +16,11 @@ const stateSelector = createStructuredSelector({
     data: makeSelectData(),
 });
 
-const Profile: FC = (props) => {
+const key = 'profile';
+
+const Profile: FC = () => {
+    useInjectReducer(key, reducer);
+
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -22,7 +30,7 @@ const Profile: FC = (props) => {
     console.log(isLoading, completed, data);
 
     useEffect(() => {
-        dispatch(requestGetProfileStart('1'));
+        dispatch(getProfileData('1') as any);
         return () => {
             dispatch(initPage());
         };
