@@ -11,7 +11,6 @@ const homeReducer = (
     state: HomeState = initialState,
     action: HomeActions,
 ) => {
-    console.log('reducer home');
     switch (action.type) {
         case actionTypes.INIT_PAGE:
             return initialState;
