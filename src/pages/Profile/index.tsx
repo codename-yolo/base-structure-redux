@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { makeSelectIsLoading, makeSelectCompleted, makeSelectData } from './selectors';
-import { initPage, requestGetProfileStart } from './actions';
+import { initPage } from './actions';
 import { useNavigate } from 'react-router-dom';
+import { getProfileData } from './thunk';
 
 const stateSelector = createStructuredSelector({
     isLoading: makeSelectIsLoading(),
@@ -12,7 +13,7 @@ const stateSelector = createStructuredSelector({
     data: makeSelectData(),
 });
 
-const Profile: FC = (props) => {
+const Profile: FC = () => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -22,7 +23,8 @@ const Profile: FC = (props) => {
     console.log(isLoading, completed, data);
 
     useEffect(() => {
-        dispatch(requestGetProfileStart('1'));
+        dispatch(getProfileData('1') as any);
+
         return () => {
             dispatch(initPage());
         };

@@ -1,6 +1,6 @@
 class HomeService {
-    static async getPosts(email:string) {
-        const data = await fetch('https://jsonplaceholder.typicode.com/posts')
+    static async getPosts() {
+        const data = await fetch('https://jsonplaceholder.typicode.com/posts');
         return data.json();
     }
 }
