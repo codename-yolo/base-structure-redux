@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { ApplicationRootState } from '../../redux/types';
-import { initialState } from './reducer';
+import { initialState } from './slice';
 
 const selectHomeState = (state: ApplicationRootState) => state.profile || initialState;
 

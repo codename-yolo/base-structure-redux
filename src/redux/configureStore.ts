@@ -1,14 +1,11 @@
-import { Store, createStore } from 'redux';
-
+import { configureStore } from '@reduxjs/toolkit'
 import createReducer from './reducers';
-import { ApplicationRootState } from './types';
 
-const configureStore: (initialState?: ApplicationRootState | Record<string, never>) => Store = (
-    initialState: ApplicationRootState | Record<string, never> = {},
-) => {
-    const store = createStore(createReducer(), initialState);
+export const store = configureStore({
+    reducer: {
+        ...createReducer(),
+    },
+    devTools: true
+})
 
-    return store;
-};
-
-export default configureStore;
+export default store;

@@ -1,11 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useNavigate } from 'react-router-dom';
 
 import { makeSelectIsLoading, makeSelectCompleted, makeSelectPosts } from './selectors';
-import { initPage, requestGetPostsStart } from './actions';
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { getListPostError, getListPostStart, getListPostSuccess, initPage } from './slice';
+import HomeServices from './services';
 
 const stateSelector = createStructuredSelector({
     isLoading: makeSelectIsLoading(),
@@ -14,17 +14,26 @@ const stateSelector = createStructuredSelector({
 });
 
 const Home: FC = () => {
-    console.log('home');
-
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
-    // const { isLoading, completed, posts } = useSelector(stateSelector);
+    const { isLoading, completed, posts } = useSelector(stateSelector);
+
+    console.log(isLoading, completed, posts);
+
+    const getListPost = async () => {
+        dispatch(getListPostStart());
+        try {
+            const data = await HomeServices.getPosts();
+            dispatch(getListPostSuccess(data));
+        } catch (error) {
+            dispatch(getListPostError());
+        }
+    };
 
     useEffect(() => {
-        dispatch(requestGetPostsStart());
-
+        getListPost();
         return () => {
             dispatch(initPage());
         };
