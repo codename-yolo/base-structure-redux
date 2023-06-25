@@ -7,11 +7,7 @@ export const initialState: HomeState = {
     posts: [],
 };
 
-const homeReducer = (
-    state: HomeState = initialState,
-    action: HomeActions,
-) => {
-    console.log('reducer home');
+const homeReducer = (state: HomeState = initialState, action: HomeActions) => {
     switch (action.type) {
         case actionTypes.INIT_PAGE:
             return initialState;

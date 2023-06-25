@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectIsLoading, makeSelectCompleted, makeSelectPosts } from './selectors';
 import { initPage, requestGetPostsStart } from './actions';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
 
 const stateSelector = createStructuredSelector({
     isLoading: makeSelectIsLoading(),
@@ -14,13 +13,13 @@ const stateSelector = createStructuredSelector({
 });
 
 const Home: FC = () => {
-    console.log('home');
-
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
-    // const { isLoading, completed, posts } = useSelector(stateSelector);
+    const { isLoading, completed, posts } = useSelector(stateSelector);
+
+    console.log(isLoading, completed, posts);
 
     useEffect(() => {
         dispatch(requestGetPostsStart());

@@ -7,10 +7,7 @@ export const initialState: ProfileState = {
     data: {},
 };
 
-const profileReducer = (
-    state: ProfileState = initialState,
-    action: ProfileActions,
-) => {
+const profileReducer = (state: ProfileState = initialState, action: ProfileActions) => {
     switch (action.type) {
         case actionTypes.INIT_PAGE:
             return initialState;

@@ -12,7 +12,7 @@ const stateSelector = createStructuredSelector({
     data: makeSelectData(),
 });
 
-const Profile: FC = (props) => {
+const Profile: FC = () => {
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
